@@ -126,3 +126,4 @@ describe('ReservationsPage', () => {
     expect(await screen.findByText(/no se encontraron reservas/i)).toBeInTheDocument();
   });
 });
+
