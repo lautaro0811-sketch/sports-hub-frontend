@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import CourtsPage from './CourtsPage';
 import { Trophy, CalendarCheck, ShieldCheck, ArrowRight } from 'lucide-react';
 
 export default function HomePage() {
@@ -88,6 +89,11 @@ export default function HomePage() {
             Fútbol, Pádel, Tenis y más instalaciones de primer nivel verificadas para tu partido.
           </p>
         </div>
+      </section>
+
+      {/* Catálogo Interactivo Integrado */}
+      <section id="catalogo" className="pt-6 border-t border-gray-200">
+        <CourtsPage />
       </section>
     </div>
   );
