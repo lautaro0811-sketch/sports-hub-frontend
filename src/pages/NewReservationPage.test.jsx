@@ -107,3 +107,4 @@ describe('NewReservationPage', () => {
     expect(screen.getByText('Reserva Confirmada')).toBeInTheDocument();
   });
 });
+

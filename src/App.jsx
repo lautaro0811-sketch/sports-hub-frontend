@@ -7,6 +7,7 @@ import HomePage from './pages/HomePage';
 import CourtsPage from './pages/CourtsPage';
 import CourtDetailPage from './pages/CourtDetailPage';
 import NewReservationPage from './pages/NewReservationPage';
+import ReservationsPage from './pages/ReservationsPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 
@@ -35,10 +36,7 @@ export default function App() {
                 path="/reservations"
                 element={
                   <ProtectedRoute>
-                    <div className="max-w-7xl mx-auto px-4 py-8">
-                      <h1 className="text-2xl font-bold">Mis Reservas</h1>
-                      <p className="text-gray-500 mt-2">Próximamente disponible en la siguiente fase.</p>
-                    </div>
+                    <ReservationsPage />
                   </ProtectedRoute>
                 }
               />
