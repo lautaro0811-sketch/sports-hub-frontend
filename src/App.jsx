@@ -33,10 +33,11 @@ export default function App() {
             </Routes>
           </main>
           <footer className="bg-white border-t border-gray-200 py-6 text-center text-xs text-gray-500">
-            <p>Sports Hub © 2026 - Programación IV · TP N.º 2</p>
+            <p>Sports Hub © 2026 </p>
           </footer>
         </div>
       </AuthProvider>
     </BrowserRouter>
   );
 }
+

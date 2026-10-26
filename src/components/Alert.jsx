@@ -36,3 +36,4 @@ export default function Alert({ type = 'error', message, onClose }) {
     </div>
   );
 }
+

@@ -92,3 +92,4 @@ describe('LoginPage', () => {
     expect(await screen.findByText('Credenciales inválidas')).toBeInTheDocument();
   });
 });
+

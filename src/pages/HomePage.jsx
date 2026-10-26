@@ -65,7 +65,7 @@ export default function HomePage() {
           </div>
           <h3 className="font-bold text-gray-900 text-base">Turnos en Tiempo Real</h3>
           <p className="text-sm text-gray-600 leading-relaxed">
-            Consultá disponibilidad horaria inmediata con cálculo automático de tarifas y reglas de precio dinámico.
+            Consultá disponibilidad horaria inmediata.
           </p>
         </div>
 
@@ -92,3 +92,4 @@ export default function HomePage() {
     </div>
   );
 }
+
