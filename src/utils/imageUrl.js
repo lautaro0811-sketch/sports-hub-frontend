@@ -12,3 +12,4 @@ export function getAssetUrl(path) {
     return `http://localhost:3000${path.startsWith('/') ? '' : '/'}${path}`;
   }
 }
+

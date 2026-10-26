@@ -6,6 +6,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import HomePage from './pages/HomePage';
 import CourtsPage from './pages/CourtsPage';
 import CourtDetailPage from './pages/CourtDetailPage';
+import NewReservationPage from './pages/NewReservationPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 
@@ -22,6 +23,14 @@ export default function App() {
               <Route path="/courts/:id" element={<CourtDetailPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
+              <Route
+                path="/reservations/new"
+                element={
+                  <ProtectedRoute>
+                    <NewReservationPage />
+                  </ProtectedRoute>
+                }
+              />
               <Route
                 path="/reservations"
                 element={
