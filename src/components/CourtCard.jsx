@@ -4,7 +4,7 @@ import { MapPin, Trophy, Clock, ArrowRight } from 'lucide-react';
 import { getAssetUrl } from '../utils/imageUrl';
 
 export default function CourtCard({ court, selectedDate }) {
-  const imageUrl = getAssetUrl(court.image_url);
+  const imageUrl = getAssetUrl(court.image_url || court.sports_complex?.cover_photo_url);
   const timeSlots = court.time_slots || [];
   const availableSlots = timeSlots.filter((slot) => slot.available);
 

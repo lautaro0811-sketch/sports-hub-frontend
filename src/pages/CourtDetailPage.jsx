@@ -103,7 +103,7 @@ export default function CourtDetailPage() {
     );
   }
 
-  const imageUrl = getAssetUrl(court.image_url);
+  const imageUrl = getAssetUrl(court.image_url || court.sports_complex?.cover_photo_url);
   const timeSlots = court.time_slots || [];
 
   return (
