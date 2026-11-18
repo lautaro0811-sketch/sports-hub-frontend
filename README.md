@@ -143,3 +143,4 @@ Los tests usan respuestas simuladas (*mocks*) de la API para poder ejecutarse si
 | Variable | Descripción | Default |
 |:---|:---|:---|
 | `VITE_API_URL` | URL base del backend Rails | `http://localhost:3000/api/v1` |
+

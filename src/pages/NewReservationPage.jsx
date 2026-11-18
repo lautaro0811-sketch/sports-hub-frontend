@@ -311,10 +311,10 @@ export default function NewReservationPage() {
           <div className="bg-gray-50 border border-gray-200 rounded-2xl p-5 space-y-4">
             <div className="flex items-center gap-2 text-xs font-bold text-gray-700">
               <ShieldCheck className="w-4 h-4 text-emerald-600" />
-              <span>Simulación de Pasarela de Pagos (Mock Gateway)</span>
+              <span>Simulación de Pasarela de Pagos </span>
             </div>
             <p className="text-xs text-gray-500">
-              Esta pasarela interactiva permite simular la confirmación del webhook de Mercado Pago o tarjeta para aprobar la seña en tu base de datos de Rails.
+              Esta pasarela interactiva para simular la confirmación Mercado Pago o tarjeta para aprobar la seña
             </p>
 
             <button
