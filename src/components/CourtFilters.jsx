@@ -1,33 +1,88 @@
 import React from 'react';
-import { Filter, Calendar, Clock, RotateCcw } from 'lucide-react';
+import { Filter, Calendar, Clock, RotateCcw, Building2, Search, X } from 'lucide-react';
 
 export default function CourtFilters({
-  sports,
-  selectedSport,
+  sports = [],
+  selectedSport = '',
   onSelectSport,
+  complexes = [],
+  selectedComplex = '',
+  onChangeComplex,
+  searchQuery = '',
+  onChangeSearch,
   selectedDate,
   onChangeDate,
-  selectedTime,
+  selectedTime = '',
   onChangeTime,
   onResetFilters,
 }) {
   const todayStr = new Date().toISOString().split('T')[0];
 
+  const hasActiveFilters = Boolean(
+    selectedSport ||
+    selectedComplex ||
+    selectedTime ||
+    searchQuery ||
+    (selectedDate && selectedDate !== todayStr)
+  );
+
   return (
     <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-4 sm:p-6 space-y-4">
-      {/* Fila de Filtros de Fecha, Horario y Reset */}
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-2 text-sm font-bold text-gray-800">
-          <Filter className="w-4 h-4 text-emerald-600" />
-          <span>Filtrar Canchas</span>
+      {/* Encabezado y Barra de Búsqueda */}
+      <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
+        {/* Buscador de texto */}
+        <div className="relative flex-1 max-w-md">
+          <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+          <input
+            type="text"
+            placeholder="Buscar por nombre, complejo o superficie..."
+            value={searchQuery}
+            onChange={(e) => onChangeSearch && onChangeSearch(e.target.value)}
+            className="w-full pl-9 pr-8 py-2 text-xs sm:text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition"
+          />
+          {searchQuery && (
+            <button
+              type="button"
+              onClick={() => onChangeSearch && onChangeSearch('')}
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 p-0.5"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          )}
         </div>
 
-        <div className="flex flex-wrap items-center gap-3">
+        {/* Controles de Complejo, Fecha, Hora y Reset */}
+        <div className="flex flex-wrap items-center gap-2.5">
+          {/* Selector de Complejo */}
+          {complexes.length > 0 && (
+            <div className="flex items-center gap-1.5 bg-gray-50 border border-gray-200 rounded-xl px-3 py-1.5 focus-within:border-emerald-500 focus-within:ring-1 focus-within:ring-emerald-500 transition">
+              <Building2 className="w-4 h-4 text-gray-400 shrink-0" />
+              <div className="flex flex-col">
+                <label htmlFor="filter-complex" className="text-[9px] uppercase font-bold text-gray-400 leading-none">
+                  Complejo
+                </label>
+                <select
+                  id="filter-complex"
+                  value={selectedComplex}
+                  onChange={(e) => onChangeComplex && onChangeComplex(e.target.value)}
+                  className="bg-transparent text-xs font-semibold text-gray-800 focus:outline-none cursor-pointer max-w-[130px] sm:max-w-[160px] truncate"
+                >
+                  <option value="">Todas las sedes</option>
+                  {complexes.map((c) => (
+                    <option key={c.id} value={c.id}>
+                      {c.name} {c.city ? `(${c.city})` : ''}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          )}
+
           {/* Selector de Fecha */}
-          <div className="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-xl px-3 py-1.5 focus-within:border-emerald-500 focus-within:ring-1 focus-within:ring-emerald-500 transition">
-            <Calendar className="w-4 h-4 text-gray-400" />
+          <div className="flex items-center gap-1.5 bg-gray-50 border border-gray-200 rounded-xl px-3 py-1.5 focus-within:border-emerald-500 focus-within:ring-1 focus-within:ring-emerald-500 transition">
+            <Calendar className="w-4 h-4 text-gray-400 shrink-0" />
             <div className="flex flex-col">
-              <label htmlFor="filter-date" className="text-[10px] uppercase font-bold text-gray-400 leading-none">
+              <label htmlFor="filter-date" className="text-[9px] uppercase font-bold text-gray-400 leading-none">
                 Fecha
               </label>
               <input
@@ -42,11 +97,11 @@ export default function CourtFilters({
           </div>
 
           {/* Selector de Hora Opcional */}
-          <div className="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-xl px-3 py-1.5 focus-within:border-emerald-500 focus-within:ring-1 focus-within:ring-emerald-500 transition">
-            <Clock className="w-4 h-4 text-gray-400" />
+          <div className="flex items-center gap-1.5 bg-gray-50 border border-gray-200 rounded-xl px-3 py-1.5 focus-within:border-emerald-500 focus-within:ring-1 focus-within:ring-emerald-500 transition">
+            <Clock className="w-4 h-4 text-gray-400 shrink-0" />
             <div className="flex flex-col">
-              <label htmlFor="filter-time" className="text-[10px] uppercase font-bold text-gray-400 leading-none">
-                Hora (Opcional)
+              <label htmlFor="filter-time" className="text-[9px] uppercase font-bold text-gray-400 leading-none">
+                Hora
               </label>
               <select
                 id="filter-time"
@@ -54,7 +109,7 @@ export default function CourtFilters({
                 onChange={(e) => onChangeTime(e.target.value)}
                 className="bg-transparent text-xs font-semibold text-gray-800 focus:outline-none cursor-pointer"
               >
-                <option value="">Cualquier horario</option>
+                <option value="">Cualquier hora</option>
                 <option value="09:00">09:00 hs</option>
                 <option value="10:00">10:00 hs</option>
                 <option value="11:00">11:00 hs</option>
@@ -72,11 +127,11 @@ export default function CourtFilters({
           </div>
 
           {/* Botón Reset */}
-          {(selectedSport || selectedTime || selectedDate !== todayStr) && (
+          {hasActiveFilters && (
             <button
               onClick={onResetFilters}
               type="button"
-              className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 hover:text-emerald-700 bg-gray-100 hover:bg-emerald-50 px-3 py-2.5 rounded-xl transition"
+              className="flex items-center gap-1.5 text-xs font-semibold text-gray-600 hover:text-emerald-700 bg-gray-100 hover:bg-emerald-50 px-3 py-2.5 rounded-xl transition"
               title="Restablecer filtros"
             >
               <RotateCcw className="w-3.5 h-3.5" />
@@ -130,4 +185,3 @@ export default function CourtFilters({
     </div>
   );
 }
-

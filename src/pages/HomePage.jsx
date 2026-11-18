@@ -1,11 +1,40 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { complexesApi } from '../api/complexes';
 import CourtsPage from './CourtsPage';
+import ComplexesSection from '../components/ComplexesSection';
 import { Trophy, CalendarCheck, ShieldCheck, ArrowRight } from 'lucide-react';
 
 export default function HomePage() {
   const { user, isAuthenticated } = useAuth();
+  const [complexes, setComplexes] = useState([]);
+  const [selectedComplexId, setSelectedComplexId] = useState(null);
+  const [loadingComplexes, setLoadingComplexes] = useState(true);
+
+  useEffect(() => {
+    const fetchComplexes = async () => {
+      try {
+        const data = await complexesApi.getComplexes();
+        setComplexes(data || []);
+      } catch (err) {
+        console.warn('Error al cargar complejos en home:', err);
+      } finally {
+        setLoadingComplexes(false);
+      }
+    };
+    fetchComplexes();
+  }, []);
+
+  const handleSelectComplex = (id) => {
+    setSelectedComplexId(id);
+    if (id) {
+      const el = document.getElementById('catalogo');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
@@ -91,11 +120,23 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Sección de Complejos Deportivos */}
+      <section className="pt-2">
+        <ComplexesSection
+          complexes={complexes}
+          selectedComplexId={selectedComplexId}
+          onSelectComplex={handleSelectComplex}
+          loading={loadingComplexes}
+        />
+      </section>
+
       {/* Catálogo Interactivo Integrado */}
       <section id="catalogo" className="pt-6 border-t border-gray-200">
-        <CourtsPage />
+        <CourtsPage
+          externalComplexId={selectedComplexId}
+          onClearExternalComplex={() => setSelectedComplexId(null)}
+        />
       </section>
     </div>
   );
 }
-

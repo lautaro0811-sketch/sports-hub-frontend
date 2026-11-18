@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Trophy, CalendarDays, User, LogOut, Menu, X } from 'lucide-react';
+import { Trophy, CalendarDays, User, LogOut, Menu, X, Building2 } from 'lucide-react';
 
 export default function Navbar() {
   const { user, isAuthenticated, logout } = useAuth();
@@ -47,6 +47,13 @@ export default function Navbar() {
             >
               Explorar Canchas
             </Link>
+
+            <a
+              href="/#complejos"
+              className="text-sm font-semibold transition py-1 border-b-2 border-transparent text-gray-600 hover:text-gray-900"
+            >
+              Complejos
+            </a>
 
             {isAuthenticated && (
               <Link
@@ -126,6 +133,13 @@ export default function Navbar() {
           >
             Explorar Canchas
           </Link>
+          <a
+            href="/#complejos"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block text-sm font-medium text-gray-800 py-2 hover:text-emerald-600"
+          >
+            Complejos
+          </a>
           {isAuthenticated && (
             <Link
               to="/reservations"
